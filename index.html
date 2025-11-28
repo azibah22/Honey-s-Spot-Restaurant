@@ -1,3 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Honey's Spo Restaurant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #e74c3c;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .menu-section {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-title p {
+            color: #7f8c8d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            background: none;
+            border: 2px solid #e74c3c;
+            color: #e74c3c;
+            padding: 0.5rem 1.5rem;
+            margin: 0 0.5rem 0.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .category-btn.active, .category-btn:hover {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .dish-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .dish-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .dish-image {
+            height: 200px;
+            width: 100%;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .dish-info {
+            padding: 1.5rem;
+        }
+        
+        .dish-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+        
+        .dish-info p {
+            color: #7f8c8d;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .dish-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .price {
+            font-weight: bold;
+            color: #e74c3c;
+            font-size: 1.2rem;
+        }
+        
+        .ask-price-btn {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .ask-price-btn:hover {
+            background-color: #1a252f;
+        }
+        
+        .whatsapp-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-header h3 {
+            color: #2c3e50;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #7f8c8d;
+        }
+        
+        .modal-body p {
+            margin-bottom: 1rem;
+        }
+        
+        .whatsapp-link {
+            display: inline-block;
+            background-color: #25D366;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .whatsapp-link:hover {
+            background-color: #128C7E;
+        }
+        
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 3rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: #e74c3c;
+        }
+        
+        .footer-column p, .footer-column a {
+            color: #bdc3c7;
+            margin-bottom: 0.8rem;
+            display: block;
+            text-decoration: none;
+        }
+        
+        .footer-column a:hover {
+            color: #e74c3c;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Honey's Spot</div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Welcome to Honey's Spot Restaurant</h1>
+            <p>Experience the finest culinary delights crafted by our master chefs using the freshest ingredients.</p>
+            <a href="#menu" class="btn">View Our Menu</a>
+        </div>
+    </section>
+
+    <section class="menu-section" id="menu">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Menu</h2>
+                <p>Click on any dish to inquire about the current price via WhatsApp</p>
+            </div>
+            
+            <div class="menu-categories">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="african">African Dishes</button>
+                <button class="category-btn" data-category="breakfast">Breakfast</button>
+                <button class="category-btn" data-category="mains">Mains & Grill</button>
+                <button class="category-btn" data-category="appetizers">Appetizers</button>
+                <button class="category-btn" data-category="sides">Sides</button>
+                <button class="category-btn" data-category="desserts">Desserts</button>
+                <button class="category-btn" data-category="drinks">Drinks</button>
+            </div>
+            
+            <div class="menu-grid" id="menu-grid">
+                <!-- Dish cards will be dynamically generated here -->
+            </div>
+        </div>
+    </section>
+
+    <section id="about" style="padding: 4rem 0; background-color: white;">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Us</h2>
+                <p>Discover our story and passion for food</p>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center;">
+                <div style="flex: 1; min-width: 300px;">
+                    <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Restaurant Interior" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <h3 style="font-size: 1.8rem; color: #2c3e50; margin-bottom: 1rem;">A Tradition of Excellence</h3>
+                    <p style="color: #7f8c8d; margin-bottom: 1rem;">Honey's Spot Restaurant has been serving delicious meals to our community since 2020. We believe in using only the freshest locally sourced ingredients to create memorable dining experiences.</p>
+                    <p style="color: #7f8c8d;">Our chefs are passionate about culinary innovation while respecting traditional recipes. Whether you're joining us for a quick lunch or a celebratory dinner, we promise an atmosphere of warmth and hospitality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" style="padding: 4rem 0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+                <p>We'd love to hear from you</p>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center;">
+                <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); flex: 1; min-width: 300px; max-width: 500px; text-align: center;">
+                    <i class="fas fa-map-marker-alt" style="font-size: 2rem; color: #e74c3c; margin-bottom: 1rem;"></i>
+                    <h3 style="margin-bottom: 0.5rem; color: #2c3e50;">Visit Us</h3>
+                    <p style="color: #7f8c8d;">Caldwell, Bong Port Market junction</p>
+                </div>
+                <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); flex: 1; min-width: 300px; max-width: 500px; text-align: center;">
+                    <i class="fas fa-phone" style="font-size: 2rem; color: #e74c3c; margin-bottom: 1rem;"></i>
+                    <h3 style="margin-bottom: 0.5rem; color: #2c3e50;">Call Us</h3>
+                    <p style="color: #7f8c8d;">+231 555392131</p>
+                </div>
+                <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); flex: 1; min-width: 300px; max-width: 500px; text-align: center;">
+                    <i class="fas fa-envelope" style="font-size: 2rem; color: #e74c3c; margin-bottom: 1rem;"></i>
+                    <h3 style="margin-bottom: 0.5rem; color: #2c3e50;">Email Us</h3>
+                    <p style="color: #7f8c8d;">honeyspot@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="whatsapp-modal" id="whatsappModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Get Price via WhatsApp</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>You're inquiring about: <strong id="selectedDish"></strong></p>
+                <p>Click the button below to send a WhatsApp message to our restaurant for the current price.</p>
+                <a href="#" class="whatsapp-link" id="whatsappLink" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Send WhatsApp Message
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Honey's Spot Restaurant</h3>
+                    <p>Experience exceptional dining with our carefully crafted menu and warm ambiance.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <p>Caldwell, Bong Port Market juction</p>
+                    <p>Phone: +231 555392131</p>
+                    <p>Email: honeyspot@gmail.com</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Opening Hours</h3>
+                    <p>Monday - Friday: 11am - 10pm</p>
+                    <p>Saturday - Sunday: 10am - 11pm</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Honey's Spot Restaurant. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
         // Sample menu data
         const menuData = [
             // Breakfast
@@ -287,3 +763,110 @@
                 image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
             }
         ];
+
+        // DOM elements
+        const menuGrid = document.getElementById('menu-grid');
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const whatsappModal = document.getElementById('whatsappModal');
+        const closeModal = document.getElementById('closeModal');
+        const selectedDishElement = document.getElementById('selectedDish');
+        const whatsappLink = document.getElementById('whatsappLink');
+
+        // Restaurant WhatsApp number (replace with actual number)
+        const restaurantWhatsAppNumber = "231555392131"; // Honey's Spot WhatsApp
+
+        // Initialize menu
+        function initializeMenu() {
+            displayMenuItems(menuData);
+            
+            // Add event listeners to category buttons
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    const category = button.getAttribute('data-category');
+                    filterMenu(category);
+                });
+            });
+            
+            // Close modal when close button is clicked
+            closeModal.addEventListener('click', () => {
+                whatsappModal.style.display = 'none';
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === whatsappModal) {
+                    whatsappModal.style.display = 'none';
+                }
+            });
+        }
+
+        // Display menu items
+        function displayMenuItems(items) {
+            menuGrid.innerHTML = '';
+            
+            items.forEach(item => {
+                const dishCard = document.createElement('div');
+                dishCard.className = 'dish-card';
+                dishCard.setAttribute('data-category', item.category);
+                
+                dishCard.innerHTML = `
+                    <div class="dish-image" style="background-image: url('${item.image}')"></div>
+                    <div class="dish-info">
+                        <h3>${item.name}</h3>
+                        <p>${item.description}</p>
+                        <div class="dish-price">
+                            <span class="price">Price on request</span>
+                            <button class="ask-price-btn" data-id="${item.id}" data-name="${item.name}">Ask Price</button>
+                        </div>
+                    </div>
+                `;
+                
+                menuGrid.appendChild(dishCard);
+            });
+            
+            // Add event listeners to "Ask Price" buttons
+            document.querySelectorAll('.ask-price-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const dishId = e.target.getAttribute('data-id');
+                    const dishName = e.target.getAttribute('data-name');
+                    openWhatsAppModal(dishName);
+                });
+            });
+        }
+
+        // Filter menu by category
+        function filterMenu(category) {
+            if (category === 'all') {
+                displayMenuItems(menuData);
+            } else {
+                const filteredItems = menuData.filter(item => item.category === category);
+                displayMenuItems(filteredItems);
+            }
+        }
+
+        // Open WhatsApp modal
+        function openWhatsAppModal(dishName) {
+            selectedDishElement.textContent = dishName;
+            
+            // Create the WhatsApp message
+            const message = `Hello, I would like to know the price of ${dishName} at Honey's Spot Restaurant.`;
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Create the WhatsApp URL
+            const whatsappURL = `https://wa.me/${restaurantWhatsAppNumber}?text=${encodedMessage}`;
+            whatsappLink.href = whatsappURL;
+            
+            // Show the modal
+            whatsappModal.style.display = 'flex';
+        }
+
+        // Initialize the menu when the page loads
+        document.addEventListener('DOMContentLoaded', initializeMenu);
+    </script>
+</body>
+</html>
