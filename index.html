@@ -336,6 +336,39 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Schedule Table Styles */
+        .schedule-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.5s;
+        }
+        
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        .schedule-table th, .schedule-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .schedule-table th {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -379,6 +412,54 @@
                 <button class="category-btn" data-category="sides">Sides</button>
                 <button class="category-btn" data-category="desserts">Desserts</button>
                 <button class="category-btn" data-category="drinks">Drinks</button>
+            </div>
+            
+            <!-- African Food Schedule -->
+            <div class="schedule-container" id="africanSchedule">
+                <h3 style="text-align: center; color: #2c3e50; margin-bottom: 1rem;">African Food Weekly Schedule</h3>
+                <div style="overflow-x: auto;">
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>Dishes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Daily Available</strong></td>
+                                <td>Goat Meat Soup, Country Chicken Soup, Fish Soup</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Monday</strong></td>
+                                <td>Kidney Beans, Palm Butter</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tuesday</strong></td>
+                                <td>Palava Sauce / Okra Sauce</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Wednesday</strong></td>
+                                <td>Potato Greens, Torborgee</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Thursday</strong></td>
+                                <td>Cassava Leaf</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Friday</strong></td>
+                                <td>Chulk Rice, Cabbage</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Saturday</strong></td>
+                                <td>G-B Goat Soup, Bassa Dumboy, Dry Rice</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="text-align: center; margin-top: 1rem; color: #7f8c8d; font-size: 0.9rem;">
+                    All Liberian food is LRD 600 (Special: LRD 1,000)
+                </p>
             </div>
             
             <div class="menu-grid" id="menu-grid">
@@ -841,6 +922,14 @@
 
         // Filter menu by category
         function filterMenu(category) {
+            // Toggle schedule visibility
+            const schedule = document.getElementById('africanSchedule');
+            if (category === 'african') {
+                schedule.style.display = 'block';
+            } else {
+                schedule.style.display = 'none';
+            }
+
             if (category === 'all') {
                 displayMenuItems(menuData);
             } else {
